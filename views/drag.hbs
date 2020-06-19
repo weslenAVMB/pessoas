@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="pessoas.css">
+
+
+<h1>{{title}}</h1>
+  <style>
+  #draggable { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; background-color: #6045ba;color:white; }
+  #droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px;background-color: #6045ba;color:white; }
+  </style>
+  <script>
+  $( function() {
+    $( "#draggable" ).draggable();
+    $( "#droppable" ).droppable({
+      drop: function( event, ui ) {
+        $( this )
+          .addClass( "ui-state-highlight" )
+          .find( "p" )
+            .html( "Muito Bem :D" );
+      }
+    });
+  } );
+  </script>
+
+ 
+<div id="draggable" class="ui-widget-content">
+  <p>Arraste</p>
+</div>
+ 
+<div id="droppable" class="ui-widget-header">
+  <p>Solte Aqui</p>
+</div
+
+

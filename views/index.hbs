@@ -1,0 +1,81 @@
+
+<form id="form" name="form" action="/deposit">
+    <h1>{{title}}</h1>
+
+    <p>Bem vindo to Internet Banking</p>
+
+    <h3>Seu saldo: <span id="spanBalance">{{accountBalance}}</span></h3>
+
+    <input type="number" id="depositValue" name="depositValue" />
+    <button type="button" onclick="deposit($(this))">Fazer depósito</button>
+        <br>
+        <br>
+    <label for="saque">Informe o valor do saque</label>
+    <br>
+    <input type="number" id="saque" name="saque">
+        
+    <button id="btnSaque" type="button">Saque</button>
+
+</form>
+
+<script>
+    function deposit (button) {
+        var depositValue = document.getElementById("depositValue").value;
+
+        if (!depositValue || depositValue < 0) {
+            alert("O valor de depóstio deve ser maior que zero");
+            return false;
+        }
+
+        $.ajax({
+            url: '/deposit',
+            type: 'GET',
+            data: jQuery($('#form')).serialize(),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#depositValue").val("");
+                $("#spanBalance").text(data.newAccountBallance); 
+                alert(data.message);
+            },
+            error: function (data) {
+                $("#depositValue").val("");
+                alert(data);
+            }
+        })
+    }
+
+
+    function saque () {
+        var total = document.getElementById("spanBalance").value
+        var saqueValue = document.getElementById("saque").value;
+        if (saqueValue <= 0 ) {
+            alert("Informe um valor maior que zero.");
+            return false;
+        }
+
+        if(saqueValue > total){
+            alert("Você não possui saldo!");
+            return false;
+        }
+
+        $.ajax({
+            url: '/saque',
+            type: 'GET',
+            data: jQuery($('#form')).serialize(),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#saque").val("");
+                $("#spanBalance").text(data.newAccountBallance); 
+                alert(data.message);
+            },
+            error: function (data) {
+                $("#saque").val("");
+                alert(data.message);
+            }
+        })
+    }
+
+    document.getElementById("btnSaque").addEventListener("click", saque)
+</script>

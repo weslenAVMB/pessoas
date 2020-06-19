@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="pessoas.css">
+
+
+<h1>{{title}}</h1>
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">CONTA</th>
+            <th scope="col">NOME</th>
+            <th scope="col">CPF</th>
+            <th scope="col">R$ SALDO</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <th scope="row">{{id}}</th>
+            <th scope="row">{{nome}}</th>
+            <td>{{cpf}}</td>
+            <td><span class="saldo" id="{{id}}">R$ {{saldo}}</span></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+<!--Botões-->
+<button id="btn-cadastrar" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+    Cadastrar <i class="fa fa-user-plus"></i>
+</button>
+
+<button id="btn-deposito" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalDeposito">
+    Depósito <i class="fa fa-dollar"></i>
+</button>
+
+<button id="btn-saque" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#modalSaque">
+    Saque <i class="fa fa-money"></i>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cadastro de Pessoa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-add-person" name="form" action="/addPerson">
+                    <!--NOME-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="nome">NOME</span>
+                        </div>
+                        <input id="txtNome" name="nome" type="text" class="form-control">
+                    </div>
+                    <!--CPF-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="cpf">CPF</span>
+                        </div>
+                        <input id="txtCpf" type="text" class="form-control">
+                    </div>
+
+                    <!--SALDO-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="saldo">R$ SALDO</span>
+                        </div>
+                        <input id="txtSaldo" type="number" class="form-control">
+                    </div>
+            </div>
+            </form>
+            <div class="modal-footer">
+                <button id="btn-salvar" type="button" class="btn btn-success">Salvar <i class="fa fa-save"></i> </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar<i
+                        class="fa fa-close"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Modal Deposito-->
+<div class="modal fade" id="modalDeposito" tabindex="-1" role="dialog" aria-labelledby="Modal Saque"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Depósito</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-deposito" name="form" action="/depPerson">
+                    <!--Cpf-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="cpf">CONTA</span>
+                        </div>
+                        <input id="conta-dep" type="number" class="form-control">
+                    </div>
+
+                    <!--Valor-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="cpf">VALOR</span>
+                        </div>
+                        <input id="valor-dep" type="number" class="form-control">
+                    </div>
+            </div>
+            </form>
+            <div class="modal-footer">
+                <button id="btn-dep" type="button" class="btn btn-success">OK <i class="fa fa-save"></i> </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar <i class="fa fa-close"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Saque-->
+<div class="modal fade" id="modalSaque" tabindex="-1" role="dialog" aria-labelledby="Modal Saque"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Saque</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-saque" name="form" action="/saque">
+                    <!--Cpf-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="cpf">CONTA</span>
+                        </div>
+                        <input id="conta-saque" type="text" class="form-control">
+                    </div>
+
+                    <!--Valor-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="cpf">VALOR</span>
+                        </div>
+                        <input id="valor-saque" type="text" class="form-control">
+                    </div>
+            </div>
+            </form>
+            <div class="modal-footer">
+                <button id="btn-saque-modal" type="button" class="btn btn-success">OK<i class="fa fa-save"></i> </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar<i
+                        class="fa fa-close"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/pessoas.js"></script>
